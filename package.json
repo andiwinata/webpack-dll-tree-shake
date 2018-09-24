@@ -1,0 +1,27 @@
+{
+  "name": "webpack-dll-tree-shake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "try:dll": "cross-env NAME=dll yarn build:prod",
+    "try:dll:entryOnly": "cross-env NAME=dll-entry-only ENTRY_ONLY=true yarn build:prod",
+    "try:noDll": "cross-env NO_DLL=true NAME=no-dll yarn build:prod",
+    "try:all": "yarn clean && yarn try:dll && yarn try:dll:entryOnly && yarn try:noDll",
+    "build:dev": "yarn build:a:dev && yarn build:b:dev",
+    "build:a:dev": "cross-env NODE_ENV=development webpack --config webpack.config.packageA",
+    "build:b:dev": "cross-env NODE_ENV=development webpack --config webpack.config.packageB",
+    "build:prod": "yarn build:a:prod && yarn build:b:prod",
+    "build:a:prod": "cross-env NODE_ENV=production webpack --config webpack.config.packageA",
+    "build:b:prod": "cross-env NODE_ENV=production webpack --config webpack.config.packageB",
+    "clean": "rimraf dist"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "rimraf": "^2.6.2",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.1"
+  }
+}
